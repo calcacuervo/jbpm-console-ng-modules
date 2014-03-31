@@ -28,11 +28,8 @@ import org.jboss.errai.bus.client.api.messaging.Message;
 import org.jboss.errai.common.client.api.Caller;
 import org.jboss.errai.common.client.api.ErrorCallback;
 import org.jboss.errai.common.client.api.RemoteCallback;
-import org.jbpm.console.ng.bd.service.DataServiceEntryPoint;
-import org.jbpm.console.ng.bd.service.DeploymentManagerEntryPoint;
 import org.jbpm.console.ng.documents.client.i18n.Constants;
 import org.jbpm.console.ng.documents.model.DocumentSummary;
-import org.jbpm.console.ng.pr.model.events.ProcessDefinitionsSearchEvent;
 import org.kie.workbench.common.widgets.client.search.ClearSearchEvent;
 import org.uberfire.client.annotations.WorkbenchMenu;
 import org.uberfire.client.annotations.WorkbenchPartTitle;
@@ -53,7 +50,7 @@ import com.google.gwt.view.client.ListDataProvider;
 @Dependent
 @WorkbenchScreen(identifier = "Documents List")
 public class DocumentsListPresenter {
-
+	
     public interface DocumentsListView extends UberView<DocumentsListPresenter> {
 
         void displayNotification( String text );
@@ -73,12 +70,6 @@ public class DocumentsListPresenter {
 
     @Inject
     private DocumentsListView view;
-
-    @Inject
-    private Caller<DataServiceEntryPoint> dataServices;
-
-    @Inject
-    private Caller<DeploymentManagerEntryPoint> deploymentManager;
 
     @Inject
     private Event<ClearSearchEvent> clearSearchEvent;
@@ -105,14 +96,7 @@ public class DocumentsListPresenter {
     }
     
     public void refreshProcessList() {
-        dataServices.call( new RemoteCallback<List<DocumentSummary>>() {
-            @Override
-            public void callback( List<DocumentSummary> processes ) {
-                currentProcesses = processes;
-                filterProcessList( view.getCurrentFilter() );
-                clearSearchEvent.fire( new ClearSearchEvent() );
-            }
-        } ).getProcesses();
+       
     }
 
     public void filterProcessList( String filter ) {
@@ -142,25 +126,7 @@ public class DocumentsListPresenter {
 
     public void reloadRepository() {
 
-        view.showBusyIndicator( constants.Please_Wait() );
-        deploymentManager.call( new RemoteCallback<Void>() {
-                                    @Override
-                                    public void callback( Void organizations ) {
-                                        refreshProcessList();
-                                        view.hideBusyIndicator();
-                                        view.displayNotification( constants.Processes_Refreshed_From_The_Repo() );
-                                    }
-                                }, new ErrorCallback<Message>() {
-
-                                    @Override
-                                    public boolean error( Message message,
-                                                          Throwable throwable ) {
-                                        view.hideBusyIndicator();
-                                        view.displayNotification( "Error: Process refreshed from repository failed" );
-                                        return true;
-                                    }
-                                }
-                              ).redeploy();
+       
 
     }
 
@@ -184,17 +150,6 @@ public class DocumentsListPresenter {
     @OnFocus
     public void onFocus() {
         refreshProcessList();
-    }
-
-    public void onSearch( @Observes final ProcessDefinitionsSearchEvent searchFilter ) {
-        view.setCurrentFilter( searchFilter.getFilter() );
-        dataServices.call( new RemoteCallback<List<DocumentSummary>>() {
-            @Override
-            public void callback( List<DocumentSummary> processes ) {
-                currentProcesses = processes;
-                filterProcessList( view.getCurrentFilter() );
-            }
-        } ).getProcesses();
     }
 
     @WorkbenchMenu

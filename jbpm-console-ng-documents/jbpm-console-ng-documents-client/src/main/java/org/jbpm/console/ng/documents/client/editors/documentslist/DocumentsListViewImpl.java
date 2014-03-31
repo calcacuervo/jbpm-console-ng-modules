@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -29,16 +28,9 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 import org.jbpm.console.ng.documents.client.i18n.Constants;
 import org.jbpm.console.ng.documents.client.resources.DocumentsListImages;
 import org.jbpm.console.ng.documents.model.DocumentSummary;
-import org.jbpm.console.ng.pr.model.events.NewProcessInstanceEvent;
-import org.jbpm.console.ng.pr.model.events.ProcessDefSelectionEvent;
-import org.jbpm.console.ng.pr.model.events.ProcessDefStyleEvent;
-import org.jbpm.console.ng.pr.model.events.ProcessInstanceSelectionEvent;
 import org.uberfire.client.common.BusyPopup;
 import org.uberfire.client.mvp.PlaceManager;
-import org.uberfire.client.mvp.PlaceStatus;
 import org.uberfire.client.tables.ResizableHeader;
-import org.uberfire.mvp.PlaceRequest;
-import org.uberfire.mvp.impl.DefaultPlaceRequest;
 import org.uberfire.security.Identity;
 import org.uberfire.workbench.events.NotificationEvent;
 
@@ -52,7 +44,6 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
@@ -237,10 +228,6 @@ public class DocumentsListViewImpl extends Composite
         if ((getParent().getOffsetHeight() - 120) > 0) {
             listContainer.setHeight(getParent().getOffsetHeight() - 120 + "px");
         }
-    }
-
-    public void changeRowSelected(@Observes ProcessDefStyleEvent processDefStyleEvent) {
-        
     }
 
     @Override
