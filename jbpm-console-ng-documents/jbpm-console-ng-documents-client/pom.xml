@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-~ Copyright 2012 JBoss Inc
+~ Copyright 2013 JBoss Inc
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
 ~ you may not use this file except in compliance with the License.
@@ -32,23 +32,12 @@
   <dependencies>
     <dependency>
       <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-console-ng-documents-api</artifactId>
-<version>6.1.0-SNAPSHOT</version>
+      <artifactId>jbpm-console-ng-human-tasks-api</artifactId>
     </dependency>
-
+    
     <dependency>
       <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-console-ng-business-domain-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-kie-services</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie.workbench.widgets</groupId>
-      <artifactId>kie-wb-common-ui</artifactId>
+      <artifactId>jbpm-console-ng-generic-client</artifactId>
     </dependency>
 
     <dependency>
@@ -57,9 +46,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.uberfire</groupId>
-      <artifactId>uberfire-workbench-processors</artifactId>
-      <scope>provided</scope>
+      <groupId>org.kie.workbench.widgets</groupId>
+      <artifactId>kie-wb-common-ui</artifactId>
     </dependency>
 
     <!-- Errai UI -->
@@ -93,5 +81,6 @@
       </resource>
     </resources>
   </build>
+
 
 </project>
